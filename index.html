@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Quantos pontos o Naruto tem <input type="text" id="in_pontos_total"></p>
+    <p>Quantos clones ele quer: <input type="text" id="in_clones_total"></p>
+    <p>Quantos clones por linha: <input type="text" id="in_clones_por_linha"></p>
+    <button onclick="clones()">Criar clones</button><br><br>
+    <div id="div_clones"></div>
+
+</body>
+
+</html>
+<script>
+    function clones() {
+        div_clones.innerHTML = ""
+        var energia_total = Number(in_pontos_total.value)
+        var total_clones = Number(in_clones_total.value)
+        var clones_por_linha = Number(in_clones_por_linha.value)
+
+        var energia_valida = energia_total >= 20 && energia_total <= 5000
+        var clones_valido = total_clones >= 0 && total_clones <= 250
+        var linha_valida = total_clones > 0
+
+        var energia_suficiente = energia_total >= total_clones * 20
+
+        var contador_clones = 0
+        var contador_clones_por_linha = 0
+
+        var energia_gasta = 0
+        var sobra_energia = 0
+        var percentual_sobra_energia = 0
+
+        if (!energia_valida || !clones_valido || !linha_valida) {
+            alert("“ERRO NA ENTRADA DE DADOS – Energia tem que ser entre 20 e 5.000. Quantidade de Clones tem que ser entre 0 e 250. Quantidade de Clones por linha tem que ser maior que 0”.")
+        } else {
+            if (!energia_suficiente) {
+                alert("A energia de naruto não é suficiente para criar essa quantidade de clones")
+            } else {
+                while (contador_clones < total_clones) {
+                    div_clones.innerHTML += `<img src="https://preview.redd.it/tudjq02jost71.jpg?auto=webp&s=ed558eeba8ee7c136febe2cd0084d2ab3661b9eb" alt="" id="img" style="height: 150px;">`
+                    contador_clones++
+                    contador_clones_por_linha++
+                    if (contador_clones_por_linha >= clones_por_linha) {
+                        div_clones.innerHTML += `<br><br>`
+                        contador_clones_por_linha = 0
+                    }
+                    energia_gasta += 20
+                }
+                sobra_energia = energia_total - energia_gasta
+                percentual_sobra_energia = (sobra_energia / energia_total) * 100
+                div_clones.innerHTML += `<br><br> ANÁLISE DA GERAÇÃO DE CLONES: Energia Inicial: ${energia_total} Qtde de Clones: ${contador_clones} Sobra de Energia: ${sobra_energia}<br>`
+
+                var ganhar = sobra_energia > 1000 || (total_clones > 50 && percentual_sobra_energia >= 20)
+                var luta_boa = sobra_energia > 500 || ((total_clones > 20 || total_clones <= 50) && percentual_sobra_energia >= 10)
+
+                if (ganhar) {
+                    div_clones.innerHTML += "PROVAVELMENTE VOCE VAI GANHAR"
+                } else if (luta_boa) {
+                    div_clones.innerHTML += "A LUTA VAI SER MUITO BOA"
+                } else {
+                    div_clones.innerHTML += "TORÇA PARA O ADVERSÁRIO SER FRAQUINHO"
+                }
+            }
+        }
+    }
+</script>
