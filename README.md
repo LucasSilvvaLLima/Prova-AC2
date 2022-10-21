@@ -1,4 +1,4 @@
-# Prova-AC2
+# Prova-AC2-Algoritmos
 QUESTÃO ÚNICA
 
 Naruto é um jovem ninja que sonha em se tornar Hokage, o ninja líder de sua vila. Todos sabemos que o Naruto tem o poder de criar vários clones.
